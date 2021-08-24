@@ -47,6 +47,22 @@ router.post('/users/logout', auth, async (req, res) => {
     }
 })
 
+//Logout from all sessions
+router.post('/users/logoutAll', auth, async (req, res) => {
+    try {
+        const user = req.user
+
+        user.tokens = []
+
+        await user.save()
+        res.send()
+
+    } catch (error) {
+        res.status(500).send()
+
+    }
+})
+
 // router.get('/users', auth, async (req, res) => {
 
 //     try {

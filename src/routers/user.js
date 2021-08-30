@@ -90,8 +90,8 @@ router.get('/users/me', auth, async (req, res) => {
 //     }
 // })
 
-router.patch('/users/:id', async (req, res) => {
-    const _id = req.params.id
+router.patch('/users/me', auth, async (req, res) => {
+    const _id = req.user._id
     const item = req.body
 
     const updates = Object.keys(item)
@@ -103,13 +103,14 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     try {
-        const user = await User.findById(_id)
+        // const user = await User.findById(_id)
+        const user = req.user
         updates.forEach((update) => user[update] = item[update])
         await user.save()
         // const user = await User.findByIdAndUpdate(_id, item, { new: true, runValidators: true })
-        if (!user) {
-            return res.status(404).send()
-        }
+        // if (!user) {
+        //     return res.status(404).send()
+        // }
         res.send(user)
     } catch (error) {
         res.status(400).send()

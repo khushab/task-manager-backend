@@ -51,6 +51,13 @@ const userSchema = new mongoose.Schema({
     ]
 })
 
+//virtual property
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
 
 //removing not required data when sending the user back
 userSchema.methods.toJSON = function () {

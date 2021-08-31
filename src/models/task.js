@@ -11,7 +11,6 @@ const Task = mongoose.model('Task', {
     },
     description: {
         type: String,
-        required: true,
         trim: true,
     },
     priority: {
@@ -30,6 +29,7 @@ const Task = mongoose.model('Task', {
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+        ref: 'User'
     }
 })
 
